@@ -8,8 +8,8 @@
 #include <iterator>
 #include <cmath>
 
-std::vector<char> scrambledAlphabet = {'D', 'Q', 'W', 'R', 'Y', 'B', 'T', 'C', 'N', 'V', 'E', 'P', 'K', '-', 'U', 'A', 'J', 'S', 'O', 'M', 'I', 'L', 'G', 'H', 'X', 'Z', 'F'};
-std::vector<char> alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '-'};
+std::vector<char> scrambledAlphabet = {'D', 'Q', 'W', 'R', 'Y', 'B', 'T', 'C', 'N', 'V', 'E', 'P', 'K', ' ', 'U', 'A', 'J', 'S', 'O', 'M', 'I', 'L', 'G', 'H', 'X', 'Z', 'F'};
+std::vector<char> alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' '};
 
 
 std::string encode(std::string msg){
@@ -29,6 +29,8 @@ std::string encode(std::string msg){
         }
         std::reverse(temp.begin(), temp.end()); //Apparently the above algorithm puts the binary in reverse order, so this is needed
         encoded.push_back(0); //Apparently the algorithm misses the first 0 in each ASCII, so this is needed
+        if (c == 'N')
+            encoded.push_back(0); //Fixes the whitespace issue
         encoded.insert(encoded.end(), temp.begin(), temp.end()); //This is needed to ensure only the new letter is reversed and not the whole msg
     }
 
@@ -94,14 +96,15 @@ int main(){
     while (1){
         std::string omsg {};
         std::cout << "Please enter the message to be encoded or decoded: ";
-        std::cin >> omsg;
+        std::getline(std::cin, omsg);
         std::string msg{};
-        for (char c : omsg){
+        for (char c : omsg){ //Translates to upper case
             msg += toupper(c);
         }
         char instruction {};
         std::cout << "Please indicate if you would like to [E]ncode/[D]ecode the message: ";
         std::cin >> instruction;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //To remove the getline bug and enable whitespace entering
         if (tolower(instruction) == 'e'){
             std::string encoded = encode(msg);
             if (encoded == "Error"){
@@ -116,7 +119,6 @@ int main(){
             std::cout << decoded << std::endl;
         } else
             std::cout << "Please try again and enter [E] or [D]" << std::endl;
-   }
-
+    }
     return 0;
 }
