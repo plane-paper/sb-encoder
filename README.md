@@ -13,9 +13,7 @@ I'm new with C++, leave me alone.~~
 
 ~~I added whitespace. I might add more numbers in later, that seems easy enough anyways.~~
 
-Numbers are added, but they are mixed with other numbers, which isn't a really secure way of encoding, since if you see a number in the encoded you know it represents another number, but this isn't meant to be genuinely used to encode anyways, so...
-
-If you do use this to encode genuinely, though, I suggest you type out the numbers (e.g. two instead of 2) to ensure the scrambling actually works, or just scramble the source code further on your own. I don't really care.
+Numbers are impossible because I use binary. Give up.
 
 # Suggestions
 
